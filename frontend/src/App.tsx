@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import init, { damage_after_reduction } from "engine";
 import { useHeroes } from "./hooks/useHeroes";
+import { useGear } from "./hooks/useGear";          // NEW
+import EquipmentPanel from "./components/EquipmentPanel"; // NEW
 
 export default function App() {
   const heroes = useHeroes();
