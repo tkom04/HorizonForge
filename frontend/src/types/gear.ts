@@ -1,16 +1,11 @@
-/* ------------- type definitions ------------- */
 export interface GearPiece {
-  id: string;         // sword_legendary_1, helmet_common_3, …
+  id: string;         // unique identifier, e.g., 'sword_legendary'
   slot: GearSlot;
   rarity: Rarity;
-  prestige: number;   // 1 – 10  (common has 3, uncommon 3, ...)
-  /* flat boosts */
   atk: number;
-  /* percentage boosts expressed as decimals
-     e.g. 0.07 = +7 %  */
-  crit: number;
-  atkspd: number;
-  critDmg: number;
+  crit: number;       // decimal (0.07 = +7%)
+  atkspd: number;     // decimal
+  critDmg: number;    // decimal
   hp: number;
   armor: number;
   resist: number;
@@ -18,29 +13,37 @@ export interface GearPiece {
 }
 
 export type GearSlot =
-  | "sword"
-  | "bow"
-  | "staff"
-  | "helmet"
-  | "chestplate"
-  | "robe"
-  | "gloves"
-  | "boots"
-  | "ring";
+  | "Sword"
+  | "Bow"
+  | "Staff"
+  | "Helmet"
+  | "Chestplate"
+  | "Robe"
+  | "Gloves"
+  | "Boots"
+  | "Ring";
 
 export type Rarity = "Legendary" | "Epic" | "Rare" | "Uncommon" | "Common";
 
-/* ------------- helper to create blank pieces ------------- */
-function blank(
-  slot: GearSlot,
-  rarity: Rarity,
-  prestige: number
-): GearPiece {
-  return {
-    id: `${slot.toLowerCase()}_${rarity.toLowerCase()}_${prestige}`,
+// Generate placeholder library of gear pieces (ignore levels)
+const slots: GearSlot[] = [
+  "sword",
+  "bow",
+  "staff",
+  "helmet",
+  "chestplate",
+  "robe",
+  "gloves",
+  "boots",
+  "ring",
+];
+const rarities: Rarity[] = ["Legendary", "Epic", "Rare", "Uncommon", "Common"];
+
+export const GEAR_LIBRARY: GearPiece[] = slots.flatMap((slot) =>
+  rarities.map((rarity) => ({
+    id: `${slot}_${rarity.toLowerCase()}`,
     slot,
     rarity,
-    prestige,
     atk: 0,
     crit: 0,
     atkspd: 0,
@@ -49,50 +52,5 @@ function blank(
     armor: 0,
     resist: 0,
     mvspd: 0,
-  };
-}
-
-/* ------------- generate 90 placeholder items ------------- */
-const rarities: Rarity[] = [
-  "Legendary",
-  "Epic",
-  "Rare",
-  "Uncommon",
-  "Common",
-];
-
-// per your note: L-E-R-R-U-U-U-C-C-C  = 10 prestige tiers
-const rarityByPrestige = [
-  "Legendary",
-  "Epic",
-  "Rare",
-  "Rare",
-  "Uncommon",
-  "Uncommon",
-  "Uncommon",
-  "Common",
-  "Common",
-  "Common",
-] as const;
-
-export const GEAR_LIBRARY: GearPiece[] = (() => {
-  const list: GearPiece[] = [];
-  const slots: GearSlot[] = [
-    "sword",
-    "bow",
-    "staff",
-    "helmet",
-    "chestplate",
-    "robe",
-    "gloves",
-    "boots",
-    "ring",
-  ];
-
-  for (const slot of slots) {
-    rarityByPrestige.forEach((r, i) => {
-      list.push(blank(slot, r, i + 1));
-    });
-  }
-  return list; // 9 slots × 10 = 90
-})();
+  }))
+);
