@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { GearPiece, GearSlot } from "../types/gear";
+import type { GearPiece } from "../types/gear";
 import { GEAR_LIBRARY } from "../types/gear";
 
 interface Props {
@@ -9,69 +9,80 @@ interface Props {
 
 export default function EquipmentPanel({ heroIds, onAdd }: Props) {
   const [heroId, setHeroId] = useState(heroIds[0] || "");
-  const [selectedTemplate, setSelectedTemplate] = useState<GearPiece | null>(null);
-  const [statInputs, setStatInputs] = useState<Partial<GearPiece>>({});
+  const [template, setTemplate] = useState<GearPiece | null>(null);
+  const [stats, setStats] = useState({ atk: 0, crit: 0, atkspd: 0, critDmg: 0 });
 
-  const handleTemplateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const tpl = GEAR_LIBRARY.find((g) => g.id === e.target.value) || null;
-    setSelectedTemplate(tpl);
-    if (tpl) {
-      setStatInputs({ ...tpl });
-    }
-  };
-
-  const handleStatChange = (field: keyof GearPiece) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = Number(e.target.value);
-    setStatInputs((prev) => ({ ...prev, [field]: val }));
-  };
-
-  const submit = () => {
-    if (!selectedTemplate) return;
-    onAdd(heroId, {
-      ...selectedTemplate,
-      ...statInputs,
-    } as GearPiece);
+  const handleAdd = () => {
+    if (!template) return;
+    onAdd(heroId, { ...template, ...stats });
   };
 
   return (
-    <div style={{ marginTop: "2rem", padding: "1rem", border: "1px solid #888", borderRadius: 6 }}>
-      <h2 style={{ marginBottom: ".5rem" }}>Add equipment</h2>
+    <div style={{ marginTop: 24, padding: 16, border: "1px solid #888", borderRadius: 6 }}>
+      <h2 style={{ marginBottom: 8 }}>Add equipment</h2>
 
-      <select value={heroId} onChange={(e) => setHeroId(e.target.value)}>
-        {heroIds.map((id) => (
-          <option key={id} value={id}>{id}</option>
-        ))}
+      {/* Hero selector */}
+      <select value={heroId} onChange={e => setHeroId(e.target.value)}>
+        {heroIds.map(id => <option key={id} value={id}>{id}</option>)}
       </select>
 
-      <select value={selectedTemplate?.id || ""} onChange={handleTemplateChange} style={{ marginLeft: "1rem" }}>
-        <option value="" disabled>
-          -- Select piece --
-        </option>
-        {GEAR_LIBRARY.map((g) => (
+      {/* Piece selector */}
+      <select
+        value={template?.id || ""}
+        onChange={e => {
+          const found = GEAR_LIBRARY.find(g => g.id === e.target.value) || null;
+          setTemplate(found);
+          setStats({ atk: 0, crit: 0, atkspd: 0, critDmg: 0 });
+        }}
+        style={{ marginLeft: 8 }}
+      >
+        <option value="">-- Select piece --</option>
+        {GEAR_LIBRARY.map(g => (
           <option key={g.id} value={g.id}>
             {`${g.slot} (${g.rarity})`}
           </option>
         ))}
       </select>
 
-      {selectedTemplate && (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 8, marginTop: "1rem" }}>
-          {(["atk", "crit", "atkspd", "critDmg", "hp", "armor", "resist", "mvspd"] as (keyof GearPiece)[])
-            .filter((field) => field in selectedTemplate)
-            .map((field) => (
-              <div key={field} style={{ display: "flex", flexDirection: "column" }}>
-                <label style={{ fontSize: "0.8rem", textTransform: "capitalize" }}>{field}</label>
-                <input
-                  type="number"
-                  value={(statInputs[field] as number) || 0}
-                  onChange={handleStatChange(field)}
-                />
-              </div>
-            ))}
+      {/* Stat inputs */}
+      {template && (
+        <div style={{ marginTop: 8, display: "flex", gap: 8 }}>
+          <label>
+            +atk{" "}
+            <input
+              type="number" value={stats.atk}
+              onChange={e => setStats(s => ({ ...s, atk: +e.target.value }))}
+              style={{ width: 56 }}
+            />
+          </label>
+          <label>
+            +crit{" "}
+            <input
+              type="number" step="0.01" value={stats.crit}
+              onChange={e => setStats(s => ({ ...s, crit: +e.target.value }))}
+              style={{ width: 56 }}
+            />
+          </label>
+          <label>
+            +AS{" "}
+            <input
+              type="number" step="0.01" value={stats.atkspd}
+              onChange={e => setStats(s => ({ ...s, atkspd: +e.target.value }))}
+              style={{ width: 56 }}
+            />
+          </label>
+          <label>
+            +CritDmg{" "}
+            <input
+              type="number" step="0.01" value={stats.critDmg}
+              onChange={e => setStats(s => ({ ...s, critDmg: +e.target.value }))}
+              style={{ width: 56 }}
+            />
+          </label>
         </div>
       )}
 
-      <button onClick={submit} style={{ marginTop: "1rem" }}>
+      <button onClick={handleAdd} style={{ marginTop: 8 }}>
         Add piece
       </button>
     </div>

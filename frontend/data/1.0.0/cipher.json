@@ -1,5 +1,5 @@
 {
-  "id": "cipher",
+  "id": "Cipher",
   "name": "Cipher",
   "rarity": "Legendary",
   "base": { "atk": 4670, "hp": 22700, "def": 29100, "spd": 0.77 },

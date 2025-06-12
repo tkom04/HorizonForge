@@ -1,5 +1,5 @@
 {
-  "id": "alfred",
+  "id": "Alfred",
   "name": "Alfred",
   "rarity": "Epic",
   "base": { "atk": 2090, "hp": 13375, "def": 14560, "spd": 0.77 },
