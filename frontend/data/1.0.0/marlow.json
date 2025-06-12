@@ -1,0 +1,10 @@
+{
+  "id": "marlow",
+  "name": "Marlow",
+  "rarity": "Epic",
+  "base": { "atk": 2350, "hp": 135000, "def": 11500, "spd": 1.05 },
+  "crit": { "chance": 0.11, "damage": 1.85 },
+  "skills": [
+    { "id": "knockback_smash", "hits": 1, "mult": 2.5, "type": "physical", "canCrit": true }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "id": "terra",
+  "name": "Terra",
+  "rarity": "Epic",
+  "base": { "atk": 1775, "hp": 18275, "def": 11400, "spd": 0.77 },
+  "crit": { "chance": 0.11, "damage": 1.85 },
+  "skills": [
+    { "id": "bond_amp", "hits": 1, "mult": 0.0, "type": "physical", "canCrit": false }
+  ]
+}

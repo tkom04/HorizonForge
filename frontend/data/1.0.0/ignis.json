@@ -1,0 +1,11 @@
+{
+  "id": "ignis",
+  "name": "Ignis",
+  "rarity": "Legendary",
+  "base": { "atk": 6750, "hp": 67500, "def": 54700, "spd": 0.75 },
+  "crit": { "chance": 0.11, "damage": 1.85 },
+  "skills": [
+    { "id": "flame_dash", "hits": 1, "mult": 3.5, "type": "magical", "canCrit": false },
+    { "id": "burn_dot",  "hits": 6, "mult": 1.0, "type": "magical", "canCrit": false }
+  ]
+}

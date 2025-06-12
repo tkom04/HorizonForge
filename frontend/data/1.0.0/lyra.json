@@ -1,0 +1,10 @@
+{
+  "id": "lyra",
+  "name": "Lyra",
+  "rarity": "Epic",
+  "base": { "atk": 2350, "hp": 15500, "def": 13100, "spd": 0.73 },
+  "crit": { "chance": 0.11, "damage": 1.85 },
+  "skills": [
+    { "id": "healing_blessing", "hits": 1, "mult": 3.0, "type": "magical", "canCrit": false }
+  ]
+}

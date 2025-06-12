@@ -1,0 +1,10 @@
+{
+  "id": "lumina",
+  "name": "Lumina",
+  "rarity": "Legendary",
+  "base": { "atk": 6840, "hp": 23420, "def": 16780, "spd": 0.67 },
+  "crit": { "chance": 0.11, "damage": 1.85 },
+  "skills": [
+    { "id": "holy_sword", "hits": 2, "mult": 1.5, "type": "magical", "canCrit": false }
+  ]
+}

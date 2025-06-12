@@ -1,0 +1,10 @@
+{
+  "id": "psyro",
+  "name": "Psyro",
+  "rarity": "Epic",
+  "base": { "atk": 2831, "hp": 33500, "def": 25100, "spd": 0.67 },
+  "crit": { "chance": 0.11, "damage": 1.85 },
+  "skills": [
+    { "id": "drag_stun", "hits": 1, "mult": 3.0, "type": "physical", "canCrit": true }
+  ]
+}
