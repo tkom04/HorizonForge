@@ -1,0 +1,10 @@
+{
+  "id": "ashen",
+  "name": "Ashen",
+  "rarity": "Legendary",
+  "base": { "atk": 6750, "hp": 41200, "def": 2300, "spd": 0.87 },
+  "crit": { "chance": 0.11, "damage": 1.85 },
+  "skills": [
+    { "id": "ember_burst", "hits": 3, "mult": 2.2, "type": "physical", "canCrit": true }
+  ]
+}
