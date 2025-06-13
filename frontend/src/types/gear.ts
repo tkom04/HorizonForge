@@ -1,12 +1,13 @@
 export interface GearPiece {
-  id: string;        // e.g. 'sword_legendary'
-  slot: GearSlot;
-  rarity: Rarity;
-  atk: number;       // flat ATK bonus
-  crit: number;      // decimal Crit CHANCE bonus (0.07 = +7%)
-  atkspd: number;    // decimal Attack Speed bonus
-  critDmg: number;   // decimal Crit DAMAGE bonus (0.25 = +25%)
+  id: string;
+  slot: string;
+  rarity: string;
+  atk: number;
+  crit: number;
+  atkspd: number;
+  critDmg: number;
 }
+
 
 export type GearSlot =
   | "sword" | "bow" | "staff"
